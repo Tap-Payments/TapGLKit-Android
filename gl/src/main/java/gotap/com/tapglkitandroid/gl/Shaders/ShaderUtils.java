@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.Shaders;
+package gotap.com.tapglkitandroid.gl.Shaders;
 
 import android.content.Context;
 

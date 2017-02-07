@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.Views;
+package gotap.com.tapglkitandroid.gl;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 
 import gotap.com.tapglkitandroid.R;
-import gotap.com.tapglkitandroid.Shaders.TapLoadingShader;
+import gotap.com.tapglkitandroid.gl.Shaders.TapLoadingShader;
 
 /**
  * Created by Morgot on 07.02.17.

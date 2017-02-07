@@ -1,11 +1,11 @@
-package gotap.com.tapglkitandroid.Shaders;
+package gotap.com.tapglkitandroid.gl.Shaders;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.opengl.GLES20;
 
 import gotap.com.tapglkitandroid.R;
-import gotap.com.tapglkitandroid.Views.TapRender;
+import gotap.com.tapglkitandroid.gl.TapRender;
 
 /**
  * Created by Morgot on 06.02.17.

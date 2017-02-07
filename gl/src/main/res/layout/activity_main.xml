@@ -9,10 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="gotap.com.tapglkitandroid.MainActivity">
+    tools:context="gotap.com.tapglkitandroid.gl.MainActivity">
 
 
-    <gotap.com.tapglkitandroid.Views.TapLoadingView
+    <gotap.com.tapglkitandroid.gl.Views.TapLoadingView
         android:layout_width="200dp"
         android:layout_height="200dp"
         xmlns:android="http://schemas.android.com/apk/res/android"

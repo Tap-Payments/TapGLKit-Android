@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.Views;
+package gotap.com.tapglkitandroid.gl;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import gotap.com.tapglkitandroid.Shaders.BaseShader;
+import gotap.com.tapglkitandroid.gl.Shaders.BaseShader;
 
 /**
  * Created by Morgot on 24.01.17.

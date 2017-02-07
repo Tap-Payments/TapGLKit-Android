@@ -1,10 +1,10 @@
-package gotap.com.tapglkitandroid;
+package gotap.com.tapglkitandroid.gl;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import gotap.com.tapglkitandroid.Views.TapLoadingView;
+import gotap.com.tapglkitandroid.R;
 
 public class MainActivity extends AppCompatActivity {
 

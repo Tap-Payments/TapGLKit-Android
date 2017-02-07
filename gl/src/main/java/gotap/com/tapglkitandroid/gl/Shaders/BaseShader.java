@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.Shaders;
+package gotap.com.tapglkitandroid.gl.Shaders;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import gotap.com.tapglkitandroid.Views.TapRender;
+import gotap.com.tapglkitandroid.gl.TapRender;
 
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
 import static android.opengl.GLES20.GL_FLOAT;
