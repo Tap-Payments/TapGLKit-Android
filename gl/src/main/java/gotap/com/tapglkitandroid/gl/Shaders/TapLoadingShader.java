@@ -75,14 +75,14 @@ public class TapLoadingShader extends BaseShader{
     }
 
     void setColor(){
-        outterColorComponents[0] = Color.red(listener.getColor())/255;
-        outterColorComponents[1] = Color.green(listener.getColor())/255;
-        outterColorComponents[2] = Color.blue(listener.getColor())/255;
-        outterColorComponents[3] = Color.alpha(listener.getColor())/255;
-        innerColorComponents[0] = Color.red(listener.getColor())/255;
-        innerColorComponents[1] = Color.green(listener.getColor())/255;
-        innerColorComponents[2] = Color.blue(listener.getColor())/255;
-        innerColorComponents[3] = Color.alpha(listener.getColor())/255;
+        outterColorComponents[0] = Color.red(listener.getColor())/255f;
+        outterColorComponents[1] = Color.green(listener.getColor())/255f;
+        outterColorComponents[2] = Color.blue(listener.getColor())/255f;
+        outterColorComponents[3] = Color.alpha(listener.getColor())/255f;
+        innerColorComponents[0] = Color.red(listener.getColor())/255f;
+        innerColorComponents[1] = Color.green(listener.getColor())/255f;
+        innerColorComponents[2] = Color.blue(listener.getColor())/255f;
+        innerColorComponents[3] = Color.alpha(listener.getColor())/255f;
     }
 
 }
