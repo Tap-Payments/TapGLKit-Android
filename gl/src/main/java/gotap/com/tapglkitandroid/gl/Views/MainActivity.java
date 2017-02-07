@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.gl;
+package gotap.com.tapglkitandroid.gl.Views;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

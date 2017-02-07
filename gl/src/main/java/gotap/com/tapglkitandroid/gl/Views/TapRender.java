@@ -1,4 +1,4 @@
-package gotap.com.tapglkitandroid.gl;
+package gotap.com.tapglkitandroid.gl.Views;
 
 import android.content.Context;
 import android.opengl.GLES20;

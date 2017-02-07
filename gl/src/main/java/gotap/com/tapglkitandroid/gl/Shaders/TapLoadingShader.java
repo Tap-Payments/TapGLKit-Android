@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.opengl.GLES20;
 
 import gotap.com.tapglkitandroid.R;
-import gotap.com.tapglkitandroid.gl.TapRender;
+import gotap.com.tapglkitandroid.gl.Views.TapRender;
 
 /**
  * Created by Morgot on 06.02.17.
