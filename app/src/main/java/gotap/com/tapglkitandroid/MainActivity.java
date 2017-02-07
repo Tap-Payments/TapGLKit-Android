@@ -1,9 +1,10 @@
 package gotap.com.tapglkitandroid;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RelativeLayout;
+
+import gotap.com.tapglkitandroid.Views.TapLoadingView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,9 +12,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RelativeLayout main = (RelativeLayout)findViewById(R.id.activity_main);
-        View v = new TapViewSurface(this);
-        v.setBackgroundColor(android.R.color.transparent);
-        main.addView(v);
+        final TapLoadingView view = (TapLoadingView)findViewById(R.id.tapLoading);
+
+        findViewById(R.id.start).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.start();
+            }
+        });
+        findViewById(R.id.pause).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.pause();
+            }
+        });
+        findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.forceStop = !view.forceStop;
+            }
+        });
+        findViewById(R.id.changeColor).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.useCustomColor = !view.useCustomColor;
+            }
+        });
+
     }
+
 }
+
