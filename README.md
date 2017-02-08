@@ -35,7 +35,7 @@ Lib give TapLoadingVIew which extends GLSurfaceView
 
 can  be used via code and xml
 
-#xml
+xml
 
 <gotap.com.tapglkitandroid.gl.Views.TapLoadingView
 android:layout_width="200dp"
@@ -47,7 +47,7 @@ app:useCustomColor="true"
 android:layout_alignParentTop="true"
 android:layout_centerHorizontal="true" />
 
-#code
+code
 
 have 2 fields
 useCustomColor -> boolesn variable hat attach to use color than can be used in next variable
