@@ -57,12 +57,12 @@ customColor -> int variable for Color, Warning  when use programatically use Col
                 getReseource.getColor, don't work whith R.color.*
 
 
-In code have 3 active methods
-    start() -> startAnimation
-    pause() -> pasuse animation
-    stop()  -> stops animation in the end point
-
-    fields :
-    useCustomColor
-    customColor
+In code have 3 active methods\n
+    start() -> startAnimation\n
+    pause() -> pasuse animation\n
+    stop()  -> stops animation in the end point\n
+\n\n
+    fields :\n
+    useCustomColor\n
+    customColor\n
                     for both can be chanched in runtime
