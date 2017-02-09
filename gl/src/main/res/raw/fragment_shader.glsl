@@ -10,7 +10,6 @@
 #define YES 1
 
 uniform highp vec2  resolution;
-uniform highp vec4  clearColor;
 uniform highp vec4  outterCircleColor;
 uniform highp vec4  innerCircleColor;
 uniform       int   usesCustomColors;
@@ -32,6 +31,8 @@ const         int   kAnimationStateStaticBig         = 1;
 const         int   kAnimationStateShrinking         = 2;
 const         int   kAnimationStateStaticSmall       = 3;
 
+const   highp float kSmoothingDistance               = 2.0;
+
 const   lowp  mat4  defaultColors = mat4(
 
     42.0 / 255.0, 206.0 / 255.0,           0.0, 1.0,
@@ -42,7 +43,7 @@ const   lowp  mat4  defaultColors = mat4(
 
 //MARK: Function Definitions
 
-bool isPointInsideCircle(highp vec2 point, highp vec2 center, highp float biggerRadius, highp float smallerRadius, bool clockwise);
+bool isPointInsideCircle(highp vec2 point, highp vec2 center, highp float biggerRadius, highp float smallerRadius, bool clockwise, out highp float alpha);
 highp float pointAngle(highp vec2 point, highp vec2 center);
 highp vec2 possibleAngleRange(bool clockwise);
 highp float angleRangeLength();
@@ -64,39 +65,37 @@ lowp float interpolateValue(lowp float value1, lowp float value2, highp float pr
 
 void main() {
 
-
-
     highp vec2 center = vec2(resolution.x / 2.0, resolution.y / 2.0);
     highp float halfSize = min(resolution.x, resolution.y);
-    highp float outterCircleBiggerRadius = halfSize / 2.0;
+    highp float outterCircleBiggerRadius = halfSize / 2.0 - kSmoothingDistance;
     highp float outterCircleSmallerRadius = outterCircleBiggerRadius - halfSize / 14.0;
     highp float innerCircleBiggerRadius = halfSize * 25.0 / 77.0;
     highp float innerCircleSmallerRadius = innerCircleBiggerRadius - halfSize * 6.0 / 77.0;
 
     highp vec2 position = gl_FragCoord.xy;
+    highp float alpha = 1.0;
 
+    if ( isPointInsideCircle(position, center, outterCircleBiggerRadius, outterCircleSmallerRadius, false, alpha) ) {
 
-    if ( isPointInsideCircle(position, center, outterCircleBiggerRadius, outterCircleSmallerRadius, false) ) {
-
-        gl_FragColor = displayedOutterColor();
+        gl_FragColor = displayedOutterColor() * alpha;
     }
-    else if ( isPointInsideCircle(position, center, innerCircleBiggerRadius, innerCircleSmallerRadius, true) ) {
+    else if ( isPointInsideCircle(position, center, innerCircleBiggerRadius, innerCircleSmallerRadius, true, alpha) ) {
 
-        gl_FragColor = displayedInnerColor();
+        gl_FragColor = displayedInnerColor() * alpha;
     }
     else {
 
-        gl_FragColor = clearColor;
+        gl_FragColor = vec4(0.0);
     }
 }
 
 //MARK: Geometry calculations.
 
-bool isPointInsideCircle(highp vec2 point, highp vec2 center, highp float biggerRadius, highp float smallerRadius, bool clockwise) {
+bool isPointInsideCircle(highp vec2 point, highp vec2 center, highp float biggerRadius, highp float smallerRadius, bool clockwise, out highp float alpha) {
 
     highp float distanceFromCenter = distance(center, point);
 
-    if ( distanceFromCenter > biggerRadius || distanceFromCenter < smallerRadius ) {
+    if ( distanceFromCenter > biggerRadius + kSmoothingDistance || distanceFromCenter < smallerRadius - kSmoothingDistance ) {
 
         return false;
     }
@@ -106,19 +105,52 @@ bool isPointInsideCircle(highp vec2 point, highp vec2 center, highp float bigger
 
     if ( isAngleInAllowedRange(pointAngle, possibleAngles)) {
 
+        if ( biggerRadius < distanceFromCenter ) {
+
+            alpha = 1.0 - smoothstep(biggerRadius, biggerRadius + kSmoothingDistance, distanceFromCenter);
+        }
+        else if ( smallerRadius > distanceFromCenter ) {
+
+            alpha = smoothstep(smallerRadius - kSmoothingDistance, smallerRadius, distanceFromCenter);
+        }
+        else {
+
+            alpha = 1.0;
+        }
+
         return true;
     }
 
     highp vec4 capCircles = capCircles(center, biggerRadius, smallerRadius, possibleAngles.x, possibleAngles.y);
     highp float capCircleRadius = 0.5 * ( biggerRadius - smallerRadius);
 
-    if ( distance(vec2(capCircles.x, capCircles.y), point) <= capCircleRadius ) {
+    highp float distanceFromFirstCapCircleCenter = distance(vec2(capCircles.x, capCircles.y), point);
+    highp float distanceFromSecondCapCircleCenter = distance(vec2(capCircles.z, capCircles.w), point);
 
+    bool isInsideFirstCapCircleSmoothingRange = distanceFromFirstCapCircleCenter <= capCircleRadius + kSmoothingDistance;
+    bool isInsideSecondCapCircleSmoothingRange = distanceFromSecondCapCircleCenter <= capCircleRadius + kSmoothingDistance;
+
+    if ( distanceFromFirstCapCircleCenter <= capCircleRadius || distanceFromSecondCapCircleCenter <= capCircleRadius ) {
+
+        alpha = 1.0;
         return true;
     }
+    else if ( isInsideFirstCapCircleSmoothingRange && isInsideSecondCapCircleSmoothingRange ) {
 
-    if ( distance(vec2(capCircles.z, capCircles.w), point) <= capCircleRadius ) {
+        highp float firstCircleSmooth = smoothstep(capCircleRadius, capCircleRadius + kSmoothingDistance, distanceFromFirstCapCircleCenter);
+        highp float secondCircleSmooth = smoothstep(capCircleRadius, capCircleRadius + kSmoothingDistance, distanceFromSecondCapCircleCenter);
 
+        alpha = 1.0 - 0.5 * ( firstCircleSmooth + secondCircleSmooth );
+        return true;
+    }
+    else if ( isInsideFirstCapCircleSmoothingRange ) {
+
+        alpha = 1.0 - smoothstep(capCircleRadius, capCircleRadius + kSmoothingDistance, distanceFromFirstCapCircleCenter);
+        return true;
+    }
+    else if ( isInsideSecondCapCircleSmoothingRange ) {
+
+        alpha = 1.0 - smoothstep(capCircleRadius, capCircleRadius + kSmoothingDistance, distanceFromSecondCapCircleCenter);
         return true;
     }
 
@@ -238,10 +270,9 @@ highp float bringValueTo2PiRange(highp float value) {
     highp float twoPi = 2.0 * M_PI;
 
     highp float positiveValue = value;
-
     if ( positiveValue < 0.0 ) {
 
-        positiveValue +=  twoPi * float(int(positiveValue / twoPi)) * float(-1);
+        positiveValue -= twoPi * float(int(positiveValue / twoPi));
     }
 
     highp float rangeLength = twoPi;
@@ -334,5 +365,3 @@ lowp float interpolateValue(lowp float value1, lowp float value2, highp float pr
 
     return value1 + (value2 - value1) * progress;
 }
-
-
