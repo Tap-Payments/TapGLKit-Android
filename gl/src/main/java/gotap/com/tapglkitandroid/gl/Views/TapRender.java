@@ -39,7 +39,6 @@ public class TapRender implements GLSurfaceView.Renderer {
     }
 
     public void onDrawFrame(GL10 unused) {
-        //sq.draw(mMVPMatrix);
         view.draw();
     }
 

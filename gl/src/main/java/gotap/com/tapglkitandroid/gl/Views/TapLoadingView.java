@@ -1,12 +1,14 @@
 package gotap.com.tapglkitandroid.gl.Views;
 
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-import gotap.com.tapglkitandroid.R;
+import gotap.com.tapglkitandroid.gl.R;
 import gotap.com.tapglkitandroid.gl.Shaders.TapLoadingShader;
+
 
 /**
  * Created by Morgot on 07.02.17.
@@ -45,8 +47,6 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
         color = a.getColor(R.styleable.TapLoadingView_customColor,-1);
         if(color!=-1) {
             useCustomColor = true;
-        }else{
-            color = Color.WHITE;
         }
         a.recycle();
     }

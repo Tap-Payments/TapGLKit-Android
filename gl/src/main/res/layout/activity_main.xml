@@ -17,8 +17,6 @@
         android:layout_height="200dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/tapLoading"
-        app:customColor="#ff00ff"
-        app:useCustomColor="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -32,36 +30,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/stop"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp" />
+            />
         <Button
             android:text="ChangeColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/changeColor"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="18dp"
-            android:layout_below="@+id/pause" />
+            />
 
         <Button
             android:text="Pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+
             android:id="@+id/pause"
-            android:layout_above="@+id/stop"
-            android:layout_alignLeft="@+id/stop"
-            android:layout_alignStart="@+id/stop" />
+        />
 
         <Button
             android:text="Start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/pause"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
             android:id="@+id/start" />
 
 
