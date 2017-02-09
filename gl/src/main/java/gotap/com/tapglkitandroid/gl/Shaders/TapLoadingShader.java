@@ -25,7 +25,7 @@ public class TapLoadingShader extends BaseShader{
 
     private int outterCircleColorUniform;
     private int innerCircleColorUniform;
-    private int clearColorUniform;
+
     private int usesCustomColorsUniform;
     private int timeUniform;
 
@@ -49,7 +49,6 @@ public class TapLoadingShader extends BaseShader{
     void obtainAttributesAndUniformsForShader(){
         outterCircleColorUniform = GLES20.glGetUniformLocation(programId,kUniformOutterCircleColorKey);
         innerCircleColorUniform = GLES20.glGetUniformLocation(programId,kUniformInnerCircleColorKey);
-        clearColorUniform = GLES20.glGetUniformLocation(programId,kUniformClearColorKey);
         usesCustomColorsUniform = GLES20.glGetUniformLocation(programId,kUniformUsesCustomColorsKey);
         timeUniform = GLES20.glGetUniformLocation(programId,kUniformTimeKey);
     }
@@ -70,7 +69,6 @@ public class TapLoadingShader extends BaseShader{
         }
         GLES20.glUniform4f(outterCircleColorUniform,outterColorComponents[0],outterColorComponents[1],outterColorComponents[2],outterColorComponents[3]);
         GLES20.glUniform4f(innerCircleColorUniform,innerColorComponents[0],innerColorComponents[1],innerColorComponents[2],innerColorComponents[3]);
-        GLES20.glUniform4f(clearColorUniform,.0f,.0f,.0f,.0f);
 
     }
 
