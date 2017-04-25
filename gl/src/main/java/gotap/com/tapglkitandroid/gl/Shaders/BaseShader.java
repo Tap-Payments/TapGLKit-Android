@@ -81,7 +81,7 @@ public abstract class BaseShader {
         if(listener!=null){
             glUniform2f(mResolutionHandle, listener.width(), listener.height());
         }else {
-            glUniform2f(mResolutionHandle, 200f, 200f);
+            glUniform2f(mResolutionHandle, 100f, 100f);
         }
         drawElement();
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
