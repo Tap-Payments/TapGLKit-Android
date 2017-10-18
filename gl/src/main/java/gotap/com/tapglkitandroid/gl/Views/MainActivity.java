@@ -4,6 +4,7 @@
 //import android.app.Activity;
 //import android.os.Bundle;
 //import android.view.View;
+//import android.widget.EditText;
 //
 //import gotap.com.tapglkitandroid.gl.R;
 //
@@ -30,7 +31,7 @@
 //        findViewById(R.id.stop).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                view.forceStop = !view.forceStop;
+//                view.setForceStop(true);
 //            }
 //        });
 //        findViewById(R.id.changeColor).setOnClickListener(new View.OnClickListener() {
@@ -40,6 +41,15 @@
 //            }
 //        });
 //
+//        final EditText percentInput = (EditText) findViewById(R.id.percentInput);
+//
+//        findViewById(R.id.percentButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                float percent = Float.parseFloat(percentInput.getText().toString())/100;
+//                view.setPercent(percent);
+//            }
+//        });
 //    }
 //
 //}

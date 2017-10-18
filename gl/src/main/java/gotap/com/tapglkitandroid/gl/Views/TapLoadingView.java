@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import gotap.com.tapglkitandroid.gl.R;
 import gotap.com.tapglkitandroid.gl.Shaders.TapLoadingShader;
@@ -19,9 +20,12 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
     private  float timer = 0;
 
 
-    public boolean forceStop = false;
+    private boolean forceStop = false;
     public int color = Color.parseColor("#ffffff");
     public boolean useCustomColor = true;
+
+    private boolean isStarted;
+    private float percent;
 
     @Override
     protected TapRender.TapRenderListener listener() {
@@ -71,13 +75,26 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
         return forceStop;
     }
 
+    public void setForceStop(boolean forceStop) {
+        this.forceStop = forceStop;
+        isStarted = !forceStop;
+        percent = 1;
+    }
+
+    public void setPercent(float percent) {
+        if (!isStarted) {
+            this.percent = percent;
+            super.start();
+        }
+    }
+
     @Override
     public void start() {
         super.start();
         if(isForceStop()) {
-            timer = 0;
             forceStop = false;
         }
+        isStarted = true;
     }
 
     @Override
@@ -85,10 +102,16 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
         if(isForceStop()&&(((timer>60 && (timer%60)/59==1)) ||timer==-1)){
             timer = -1;
-            return 2.25f;
+            return 2.5f;
         }
 
-        return (timer++/60);
+        if (isStarted) {
+            return timer++/60;
+        } else {
+            float value = 4.5f - 2.0f * percent;
+            timer = value * 60;
+            return value;
+        }
     }
 
     @Override
