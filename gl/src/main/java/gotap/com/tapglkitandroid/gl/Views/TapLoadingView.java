@@ -90,6 +90,15 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
     @Override
     public void start() {
+        timer = -1;
+        super.start();
+        if(isForceStop()) {
+            forceStop = false;
+        }
+        isStarted = true;
+    }
+
+    public void startFromCurrent() {
         super.start();
         if(isForceStop()) {
             forceStop = false;
@@ -99,7 +108,6 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
     @Override
     public float getTimer() {
-
         if(isForceStop()&&(((timer>60 && (timer%60)/59==1)) ||timer==-1)){
             timer = -1;
             return 2.5f;
