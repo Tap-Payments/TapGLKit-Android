@@ -75,16 +75,15 @@ void main() {
     highp vec2 position = gl_FragCoord.xy;
     highp float alpha = 1.0;
 
-    if ( isPointInsideCircle(position, center, outterCircleBiggerRadius, outterCircleSmallerRadius, false, alpha) ) {
-
-        gl_FragColor = displayedOutterColor() * alpha;
+    if (isPointInsideCircle(position, center, outterCircleBiggerRadius, outterCircleSmallerRadius, false, alpha) || isPointInsideCircle(position, center, innerCircleBiggerRadius, innerCircleSmallerRadius, true, alpha)) {
+        if (isPointInsideCircle(position, center, outterCircleBiggerRadius, outterCircleSmallerRadius, false, alpha)) {
+            gl_FragColor = displayedOutterColor() * alpha;
+        } else {
+            gl_FragColor = displayedInnerColor() * alpha;
+        }
     }
-    else if ( isPointInsideCircle(position, center, innerCircleBiggerRadius, innerCircleSmallerRadius, true, alpha) ) {
 
-        gl_FragColor = displayedInnerColor() * alpha;
-    }
     else {
-
         gl_FragColor = vec4(0.0);
     }
 }
