@@ -3,6 +3,7 @@ package gotap.com.tapglkitandroid.gl.Shaders;
 import android.content.Context;
 import android.graphics.Color;
 import android.opengl.GLES20;
+import android.os.Build;
 
 import gotap.com.tapglkitandroid.gl.R;
 import gotap.com.tapglkitandroid.gl.Views.TapRender;
@@ -44,7 +45,7 @@ public class TapLoadingShader extends BaseShader{
 
     @Override
     int fragmentShaderRaw() {
-        return R.raw.fragment_shader;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP ? R.raw.fragment_shader : R.raw.fragment_shader_android_5_and_above;
     }
 
     void obtainAttributesAndUniformsForShader(){
