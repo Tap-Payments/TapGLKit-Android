@@ -27,6 +27,7 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
     private boolean isStarted;
     private float percent;
+    private boolean shouldUsePercent;
 
     @Override
     protected TapRender.TapRenderListener listener() {
@@ -80,9 +81,11 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
         this.forceStop = forceStop;
         isStarted = !forceStop;
         percent = 1;
+        shouldUsePercent = false;
     }
 
     public void setPercent(float percent) {
+        shouldUsePercent = true;
         if (!isStarted) {
             this.percent = percent;
             super.start();
@@ -97,6 +100,7 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
         }
         super.start();
         isStarted = true;
+        shouldUsePercent = false;
     }
 
     public void startFromCurrent() {
@@ -109,7 +113,7 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
     @Override
     public float getTimer() {
-        if (isForceStop()) {
+        if (isForceStop() && !shouldUsePercent) {
             if ((timer / 60 % 2.5f == 0 && timer / 60 % 5.0f != 0) || timer == -1) {
                 timer = -1;
                 return 2.5f;
