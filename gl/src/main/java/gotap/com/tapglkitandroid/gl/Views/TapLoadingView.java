@@ -4,6 +4,7 @@ package gotap.com.tapglkitandroid.gl.Views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.renderscript.Sampler;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -91,10 +92,10 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
     @Override
     public void start() {
         timer = -1;
-        super.start();
         if(isForceStop()) {
             forceStop = false;
         }
+        super.start();
         isStarted = true;
     }
 
@@ -108,9 +109,13 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
     @Override
     public float getTimer() {
-        if(isForceStop()&&(((timer>60 && (timer%60)/59==1)) ||timer==-1)){
-            timer = -1;
-            return 2.5f;
+        if (isForceStop()) {
+            if ((timer / 60 % 2.5f == 0 && timer / 60 % 5.0f != 0) || timer == -1) {
+                timer = -1;
+                return 2.5f;
+            } else {
+                return timer++/60;
+            }
         }
 
         if (isStarted) {
