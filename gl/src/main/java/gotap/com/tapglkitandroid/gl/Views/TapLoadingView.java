@@ -135,4 +135,5 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
     public boolean useCustomColor() {
         return useCustomColor;
     }
+
 }
