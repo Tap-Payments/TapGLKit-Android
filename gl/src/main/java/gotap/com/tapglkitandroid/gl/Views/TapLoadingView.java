@@ -127,7 +127,7 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
             return timer++/60;
         } else {
             float value = 4.5f - 2.0f * percent;
-            timer = value * 60;
+            timer = (int) value * 60;
             return value;
         }
     }
