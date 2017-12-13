@@ -114,7 +114,8 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
     @Override
     public float getTimer() {
         if (isForceStop() && !shouldUsePercent) {
-            if ((timer / 60 % 2.5f == 0 && timer / 60 % 5.0f != 0) || timer == -1) {
+            boolean timerCondition = timer / 60 % 2.5f == 0 && timer / 60 % 5.0f != 0;
+            if (timerCondition || timer == -1) {
                 timer = -1;
                 return 2.5f;
             } else {
