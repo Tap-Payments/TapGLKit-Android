@@ -28,7 +28,7 @@ public abstract class TapViewSurface extends GLSurfaceView  {
     public void init(Context context){
         this.context = context;
         setEGLContextClientVersion(2);
-        setZOrderOnTop(false);
+        setZOrderOnTop(true);
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         getHolder().setFormat(PixelFormat.RGBA_8888);
         setDebugFlags(DEBUG_CHECK_GL_ERROR|DEBUG_LOG_GL_CALLS);
