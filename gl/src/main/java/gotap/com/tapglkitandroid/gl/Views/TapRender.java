@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.microedition.khronos.opengles.GL10;
 
 import gotap.com.tapglkitandroid.gl.Shaders.BaseShader;
+import gotap.com.tapglkitandroid.gl.Shaders.TapLoadingShader;
 
 /**
  * Created by Morgot on 24.01.17.
@@ -39,6 +40,7 @@ public class TapRender implements GLSurfaceView.Renderer {
     }
 
     public void onDrawFrame(GL10 unused) {
+        if(view!=null)
         view.draw();
     }
 
@@ -47,7 +49,16 @@ public class TapRender implements GLSurfaceView.Renderer {
 
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         try {
-            view  = (BaseShader)shader.getConstructors()[0].newInstance(this.context,listener);
+            if(shader.getConstructors()!=null ){
+                if(shader.getConstructors().length>0){
+                    view  = (BaseShader)shader.getConstructors()[0].newInstance(this.context,listener);
+                }
+            }
+            if(view==null){
+                view = new TapLoadingShader(this.context,listener);// TapLoadingShader.class.newInstance();
+            }
+
+//            view  = (BaseShader)shader.getConstructors()[0].newInstance(this.context,listener);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
