@@ -24,7 +24,7 @@ public class TapLoadingView extends TapViewSurface implements TapRender.TapRende
 
 
     private boolean forceStop = false;
-    public int color = Color.parseColor("#ffffff");
+    public int color = Color.parseColor("#535353");
     public boolean useCustomColor = true;
 
     private boolean isStarted;
